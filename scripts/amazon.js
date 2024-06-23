@@ -47,7 +47,8 @@ products.forEach((product) => {
                 Added
             </div>
 
-            <button class="add-to-cart-button button-primary">
+            <button class="add-to-cart-button button-primary js-add-to-cart"
+            data-product-id="${product.id}">
                 Add to Cart
             </button>
             </div>`;
@@ -55,6 +56,34 @@ products.forEach((product) => {
         
 });
 
-console.log(productsHTML);
+
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
+
+document.querySelectorAll('.js-add-to-cart').forEach((button) => { // in this line selects the all the add to cart buttons in web site
+    button.addEventListener('click', () => { // when it is   clicked
+        const productId = button.dataset.productId; //this productName should be in this way.
+
+        //get data atribute from button and acces using button.dataset.productName
+
+        let matchingItem;
+
+        cart.forEach((item) => {  // product check alredy in the cart
+            if(productId === item.productId){
+                matchingItem = item;
+            }
+        });
+
+        if(matchingItem){
+            matchingItem.Quantity += 1;
+        }else{
+            cart.push({
+                productId: productId,
+                Quantity: 1
+            }); // add to cart array in cart.js
+        }
+        console.log(cart);
+        
+
+    });
+});
