@@ -82,6 +82,16 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => { // in this li
                 Quantity: 1
             }); // add to cart array in cart.js
         }
+
+        let cartQuantity = 0;
+
+        cart.forEach((item) => {
+            cartQuantity += item.Quantity;
+        });
+
+        document.querySelector('.cart-quantity').innerHTML = cartQuantity;
+
+        console.log(cartQuantity);
         console.log(cart);
         
 
