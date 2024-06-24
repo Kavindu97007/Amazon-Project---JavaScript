@@ -1,4 +1,4 @@
-
+import {cart} from '../data/cart'; //this line takesthe car variable from cart.js
 let productsHTML = '';
 
 products.forEach((product) => {
