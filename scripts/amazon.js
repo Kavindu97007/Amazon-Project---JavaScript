@@ -1,4 +1,5 @@
-import {cart} from '../data/cart'; //this line takesthe car variable from cart.js
+import {cart, addToCart} from '../data/cart.js'; //this line takesthe car variable from cart.js
+import {products} from '../data/products.js';
 let productsHTML = '';
 
 products.forEach((product) => {
@@ -60,39 +61,29 @@ products.forEach((product) => {
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-document.querySelectorAll('.js-add-to-cart').forEach((button) => { // in this line selects the all the add to cart buttons in web site
-    button.addEventListener('click', () => { // when it is   clicked
-        const productId = button.dataset.productId; //this productName should be in this way.
+function updateCartQuantty(){
+    let cartQuantity = 0;
 
-        //get data atribute from button and acces using button.dataset.productName
-
-        let matchingItem;
-
-        cart.forEach((item) => {  // product check alredy in the cart
-            if(productId === item.productId){
-                matchingItem = item;
-            }
-        });
-
-        if(matchingItem){
-            matchingItem.Quantity += 1;
-        }else{
-            cart.push({
-                productId: productId,
-                Quantity: 1
-            }); // add to cart array in cart.js
-        }
-
-        let cartQuantity = 0;
-
-        cart.forEach((item) => {
-            cartQuantity += item.Quantity;
+        cart.forEach((cartItem) => {
+            cartQuantity += cartItem.Quantity;
         });
 
         document.querySelector('.cart-quantity').innerHTML = cartQuantity;
 
         console.log(cartQuantity);
         console.log(cart);
+}
+
+document.querySelectorAll('.js-add-to-cart').forEach((button) => { // in this line selects the all the add to cart buttons in web site
+    button.addEventListener('click', () => { // when it is   clicked
+        const productId = button.dataset.productId; //this productName should be in this way.
+
+        //get data atribute from button and acces using button.dataset.productName
+
+        addToCart(productId);
+        updateCartQuantty();
+
+        
         
 
     });
